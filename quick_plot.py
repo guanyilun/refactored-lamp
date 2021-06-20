@@ -17,9 +17,11 @@ if not op.exists(args.odir): os.makedirs(args.odir)
 img = np.load(args.ifile)
 
 # preprocess happening here
-# made a mistake in stacking by adding 1/421 to the image
-# need to correct it here <-- makes no difference though
-# img -= 1/421
+img = preprocess_image(img, steps={
+    'highpass': {'fc': 0.1},
+    # 'highpass2': {'fc': 0.0003, 'thres': 0.8},
+    # 'arcsinh'  : {'a': 1, 'b': 1}
+})
 
 plt.figure(figsize=(10,5))
 plt.imshow(img, origin='lower')
